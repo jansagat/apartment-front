@@ -1,4 +1,4 @@
-# apartment-front
+# announcement-front
 
 ## Project setup
 ```

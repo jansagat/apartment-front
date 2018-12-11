@@ -1,34 +1,46 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import HomeScreen from '@/views/HomeScreen'
-import ApartmentsList from '@/views/Apartments/ApartmentsList'
-import ApartmentSingle from '@/views/Apartments/ApartmentSingle'
-import FilterApartments from '@/views/FilterApartments'
+import AnnouncementsList from '@/views/Announcements/AnnouncementsList'
+import AnnouncementSingle from '@/views/Announcements/AnnouncementSingle'
+import FilterAnnouncements from '@/views/FilterAnnouncements'
+import AddAnnouncement from '@/views/AddAnnouncement'
+import ModerateAnnouncements from '@/views/ModerateAnnouncements'
 
 Vue.use(Router)
 
 const routes = [
   {
     path: '/',
-    name: 'HomeScreen',
+    name: '',
     component: HomeScreen,
     children: [
       {
         path: '',
-        name: 'ApartmentsList',
-        component: ApartmentsList,
+        name: 'AnnouncementsList',
+        component: AnnouncementsList,
         props: true
       },
       {
-        path: 'apartment/:id',
-        name: 'ApartmentSingle',
-        component: ApartmentSingle,
+        path: 'announcement/:id',
+        name: 'AnnouncementSingle',
+        component: AnnouncementSingle,
         props: (route) => ({ id: route.params.id })
       },
       {
-        path: 'filter-apartments',
-        name: 'FilterApartments',
-        component: FilterApartments
+        path: 'filter-announcements',
+        name: 'FilterAnnouncements',
+        component: FilterAnnouncements
+      },
+      {
+        path: 'add-announcement',
+        name: 'AddAnnouncement',
+        component: AddAnnouncement
+      },
+      {
+        path: 'moderate-announcements',
+        name: 'ModerateAnnouncements',
+        component: ModerateAnnouncements
       }
     ]
   }

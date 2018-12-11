@@ -1,6 +1,6 @@
 <script>
 export default {
-  name: 'ApartmentSingle',
+  name: 'AnnouncementSingle',
   props: {
     id: Number
   },
@@ -10,9 +10,9 @@ export default {
     }
   },
   methods: {
-    onClickOpenSingleApartment () {
+    onClickOpenSingleAnnouncement () {
       this.$router.push({
-        name: 'ApartmentSingle',
+        name: 'AnnouncementSingle',
         params: {
           id: this.id
         }
@@ -48,7 +48,7 @@ export default {
           <v-btn
             flat
             color="purple"
-            @click="onClickOpenSingleApartment"
+            @click="onClickOpenSingleAnnouncement"
           >
             Explore
           </v-btn>

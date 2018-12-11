@@ -1,6 +1,6 @@
 <script>
 export default {
-  name: 'ApartmentsFilter',
+  name: 'AnnouncementsFilter',
   data () {
     return {
       //

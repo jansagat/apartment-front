@@ -1,6 +1,6 @@
 <script>
 export default {
-  name: 'FilterApartments',
+  name: 'FilterAnnouncements',
   data () {
     return {
       params: {
@@ -9,9 +9,9 @@ export default {
     }
   },
   methods: {
-    onClickOpenApartmentsListWithParams () {
+    onClickOpenAnnouncementsListWithParams () {
       this.$router.push({
-        name: 'ApartmentsList',
+        name: 'AnnouncementsList',
         params: { filterParams: this.params }
       })
     }
@@ -29,7 +29,7 @@ export default {
         <v-btn
           block
           color="primary"
-          @click="onClickOpenApartmentsListWithParams"
+          @click="onClickOpenAnnouncementsListWithParams"
         >
           Показать
         </v-btn>

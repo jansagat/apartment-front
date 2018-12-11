@@ -1,6 +1,6 @@
 <script>
 export default {
-  name: 'ApartmentSingle',
+  name: 'AnnouncementSingle',
   props: {
     id: Number
   },
@@ -14,7 +14,7 @@ export default {
 
 <template>
   <div>
-    <h1>Single apartment page</h1>
+    <h1>Single announcement page</h1>
     <h2>ID: {{ id }}</h2>
   </div>
 </template>

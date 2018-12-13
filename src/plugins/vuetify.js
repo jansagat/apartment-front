@@ -5,7 +5,8 @@ import Vuetify, {
   VFooter,
   VToolbar,
   VIcon,
-  VBtn
+  VBtn,
+  VImg
 } from 'vuetify/lib'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import 'vuetify/src/stylus/app.styl'
@@ -25,6 +26,7 @@ Vue.use(Vuetify, {
     VToolbar,
     VIcon,
     transitions,
-    VBtn
+    VBtn,
+    VImg
   }
 })

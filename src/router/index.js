@@ -6,6 +6,7 @@ import AnnouncementSingle from '@/views/Announcements/AnnouncementSingle'
 import FilterAnnouncements from '@/views/FilterAnnouncements'
 import AddAnnouncement from '@/views/AddAnnouncement'
 import ModerateAnnouncements from '@/views/ModerateAnnouncements'
+import AuthScreen from '@/views/AuthScreen'
 
 Vue.use(Router)
 
@@ -41,6 +42,11 @@ const routes = [
         path: 'moderate-announcements',
         name: 'ModerateAnnouncements',
         component: ModerateAnnouncements
+      },
+      {
+        path: 'auth',
+        name: 'AuthScreen',git
+        component: AuthScreen
       }
     ]
   }

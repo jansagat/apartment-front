@@ -5,28 +5,28 @@ export default {
   name: 'App',
   components: {
     AppNavigationDrawer
-  },
-  data () {
-    return {
-      drawer: false
-    }
   }
 }
 </script>
 
 <template>
   <v-app>
-    <app-navigation-drawer
-      :drawer.sync="drawer"
-    />
+    <app-navigation-drawer/>
 
-    <v-toolbar app fixed clipped-left>
-      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <v-toolbar-title>Application</v-toolbar-title>
-    </v-toolbar>
+    <app-toolbar/>
 
     <v-content>
-      <router-view/>
+      <transition name="component-fade" mode="out-in">
+        <router-view/>
+      </transition>
     </v-content>
   </v-app>
 </template>
+
+<style lang="sass">
+.component-fade-enter-active, .component-fade-leave-active
+  transition: opacity .3s ease
+
+.component-fade-enter, .component-fade-leave-to
+  opacity: 0
+</style>

@@ -1,5 +1,5 @@
 import Observable from './Observable'
-import AppConstants from '@/Constants/AppConstants'
+import AppConstants from '@/constants/AppConstants'
 const COUNTDOWN_INTERVAL = 100
 
 class CountdownTimer extends Observable {

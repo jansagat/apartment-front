@@ -1,22 +1,25 @@
 <script>
+import { mapGetters, mapActions } from 'vuex'
+
 export default {
   name: 'AppNavigationDrawer',
-  props: {
-    drawer: Boolean
-  },
   data () {
     return {}
   },
+  computed: {
+    ...mapGetters(['getDrawer'])
+  },
   methods: {
     actionDrawer (value) {
-      this.$emit('update:drawer', value)
+      this.setDrawer(value)
     },
     addAnnouncement () {
       this.$router.push({ name: 'AddAnnouncement' })
     },
     moderateAnnouncements () {
       this.$router.push({ name: 'ModerateAnnouncements' })
-    }
+    },
+    ...mapActions(['setDrawer'])
   }
 }
 </script>
@@ -25,7 +28,7 @@ export default {
   <v-navigation-drawer
     clipped
     fixed
-    :value="drawer"
+    :value="getDrawer"
     @input="actionDrawer"
     app
   >

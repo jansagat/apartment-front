@@ -7,6 +7,8 @@ import FilterAnnouncements from '@/views/FilterAnnouncements'
 import AddAnnouncement from '@/views/AddAnnouncement'
 import ModerateAnnouncements from '@/views/ModerateAnnouncements'
 import AuthScreen from '@/views/AuthScreen'
+import SendSms from '@/views/Auth/SendSms'
+import SignIn from '@/views/Auth/SignIn'
 
 Vue.use(Router)
 
@@ -45,8 +47,19 @@ const routes = [
       },
       {
         path: 'auth',
-        name: 'AuthScreen',git
-        component: AuthScreen
+        component: AuthScreen,
+        children: [
+          {
+            path: '',
+            name: 'SendSms',
+            component: SendSms
+          },
+          {
+            path: 'sing-in',
+            name: 'SignIn',
+            component: SignIn
+          }
+        ]
       }
     ]
   }

@@ -58,46 +58,14 @@ export default {
 
 <template>
   <v-container fill-height>
-    <v-layout align-center>
-      <v-flex>
-        <v-img
-          :src="require('@/assets/logo.png')"
-          contain
-          max-height="70"
-        ></v-img>
-        <v-text-field
-          label="Номер телефона"
-          v-model="phoneNumber"
-          type="tel"
-          :disabled="phoneDisabled"
-        ></v-text-field>
-        <v-text-field
-          v-show="smsSent"
-          label="Код подтверждения"
-          v-model="confirmCode"
-          type="tel"
-          :messages="smsSentText"
-        ></v-text-field>
-        <v-btn
-          block
-          depressed
-          color="yellow"
-          @click="signIn"
-          v-show="signInShown"
-        >
-          SIGN IN
-        </v-btn>
-        <v-btn
-          block
-          depressed
-          color="yellow"
-          @click="sendSMS"
-          v-show="!smsSent"
-        >
-          SEND SMS
-        </v-btn>
-      </v-flex>
-    </v-layout>
+      <v-layout
+        column
+        justify-center
+      >
+        <transition name="component-fade" mode="out-in">
+          <router-view/>
+        </transition>
+      </v-layout>
   </v-container>
 </template>
 

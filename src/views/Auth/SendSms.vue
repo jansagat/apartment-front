@@ -1,4 +1,5 @@
 <script>
+import firebase from 'firebase/app'
 export default {
   name: 'SendSms',
   data () {
@@ -9,8 +10,17 @@ export default {
     }
   },
   methods: {
-    sendSMS () {
-      this.$router.push({ name: 'SignIn' })
+    async sendSMS () {
+      window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(this.$refs.sendSmsButton.$el, {
+        'size': 'invisible'
+      })
+      const appVerifier = window.recaptchaVerifier
+      try {
+        window.confirmationResult = await firebase.auth().signInWithPhoneNumber(this.phoneNumber, appVerifier)
+        this.$router.push({ name: 'SignIn' })
+      } catch (e) {
+        console.error(e)
+      }
     }
   }
 }
@@ -26,6 +36,7 @@ export default {
      :disabled="phoneDisabled"
    ></v-text-field>
    <v-btn
+     ref="sendSmsButton"
      block
      depressed
      color="yellow"

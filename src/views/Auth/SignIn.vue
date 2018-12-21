@@ -1,17 +1,44 @@
 <script>
+import CountdownTimer from '@/utils/CountdownTimer'
+const COUNTDOWN_TIME_IN_MIN = 1
+
 export default {
   name: 'SignIn',
   data () {
     return {
-      confirmCode: null
+      confirmCode: null,
+      countdownTimer: null,
+      message: null,
+      isTimerExpired: false
     }
   },
+  mounted () {
+    this.initCountdownTimer()
+  },
   methods: {
-    signIn () {
-      this.$emit('signIn')
+    initCountdownTimer () {
+      this.countdownTimer = new CountdownTimer(COUNTDOWN_TIME_IN_MIN)
+      this.countdownTimer.subscribe(this.timer)
+      this.countdownTimer.runCountdown()
     },
-    back () {
+    async signIn () {
+      try {
+        const res = await window.confirmationResult.confirm(this.confirmCode)
+        let user = res.user
+      } catch (e) {
+        console.error(e)
+      }
+    },
+    goBack () {
       this.$router.push({ name: 'SendSms' })
+    },
+    timer (data) {
+      this.isTimerExpired = data.isTimerExpired
+      if (this.isTimerExpired) {
+        this.message = null
+      } else {
+        this.message = `Отправить код повторно через: ${data.minutes}:${data.seconds}`
+      }
     }
   }
 }
@@ -24,7 +51,7 @@ export default {
       label="Код подтверждения"
       v-model="confirmCode"
       type="tel"
-      :messages="'sms sent text'"
+      :messages="message"
     ></v-text-field>
     <v-btn
       block
@@ -33,6 +60,15 @@ export default {
       @click="signIn"
     >
       NEXT
+    </v-btn>
+    <v-btn
+      block
+      depressed
+      color="yellow"
+      @click="goBack"
+      v-show="isTimerExpired"
+    >
+      BACK
     </v-btn>
   </div>
 </template>

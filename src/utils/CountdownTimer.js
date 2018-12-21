@@ -29,7 +29,7 @@ class CountdownTimer extends Observable {
 
   setIntervalHandler (interval) {
     let duration = this.endTime - this.startTime()
-    let expiredTime = false
+    let isTimerExpired = false
 
     let minutes = Math.floor((duration % (1000 * 60 * 60)) / (1000 * 60))
     let seconds = Math.floor((duration % (1000 * 60)) / 1000)
@@ -38,10 +38,10 @@ class CountdownTimer extends Observable {
       if (seconds < 10) {
         seconds = this._addLeadingZero(seconds)
       }
-      this.notify({ minutes, seconds, expiredTime })
+      this.notify({ minutes, seconds, isTimerExpired })
     } else {
-      expiredTime = true
-      this.notify({ minutes: '0', seconds: '00', expiredTime })
+      isTimerExpired = true
+      this.notify({ minutes: '0', seconds: '00', isTimerExpired })
       clearInterval(interval)
     }
   }

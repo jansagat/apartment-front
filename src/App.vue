@@ -1,10 +1,16 @@
 <script>
 import AppNavigationDrawer from '@/components/_common/AppNavigationDrawer'
+import firebase from 'firebase/app'
 
 export default {
   name: 'App',
   components: {
     AppNavigationDrawer
+  },
+  mounted () {
+    firebase.auth().onAuthStateChanged((user) => {
+      // user
+    })
   }
 }
 </script>

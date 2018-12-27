@@ -13,6 +13,9 @@ export default {
     }
   },
   mounted () {
+    if (!window.confirmationResult) {
+      this.$router.replace({ name: 'SendSms' })
+    }
     this.initCountdownTimer()
   },
   methods: {
@@ -23,8 +26,8 @@ export default {
     },
     async signIn () {
       try {
-        const res = await window.confirmationResult.confirm(this.confirmCode)
-        let user = res.user
+        await window.confirmationResult.confirm(this.confirmCode)
+        this.$router.replace({ name: 'AnnouncementsList' })
       } catch (e) {
         console.error(e)
       }

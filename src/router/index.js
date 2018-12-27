@@ -55,7 +55,7 @@ const routes = [
             component: SendSms
           },
           {
-            path: 'sing-in',
+            path: 'sign-in',
             name: 'SignIn',
             component: SignIn
           }

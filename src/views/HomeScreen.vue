@@ -1,15 +1,17 @@
 <script>
 import firebase from 'firebase/app'
+import store from '@/store'
+const USER_SIGNED_IN = true
+const NO_USER_SIGNED_IN = false
+
 export default {
   name: 'HomeScreen',
-  beforeCreate () {
+  beforeRouteEnter (to, from, next) {
     firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        console.log(user)
-        // User is signed in.
-      } else {
-        console.log('// No user is signed in.')
-      }
+      user
+        ? store.dispatch('user/setAuthState', USER_SIGNED_IN)
+        : store.dispatch('user/setAuthState', NO_USER_SIGNED_IN)
+      next()
     })
   }
 }

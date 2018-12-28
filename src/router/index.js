@@ -9,6 +9,7 @@ import ModerateAnnouncements from '@/views/ModerateAnnouncements'
 import AuthScreen from '@/views/AuthScreen'
 import SendSms from '@/views/Auth/SendSms'
 import SignIn from '@/views/Auth/SignIn'
+import store from '@/store'
 
 Vue.use(Router)
 
@@ -38,12 +39,18 @@ const routes = [
       {
         path: 'add-announcement',
         name: 'AddAnnouncement',
-        component: AddAnnouncement
+        component: AddAnnouncement,
+        meta: {
+          authRequired: true
+        }
       },
       {
         path: 'moderate-announcements',
         name: 'ModerateAnnouncements',
-        component: ModerateAnnouncements
+        component: ModerateAnnouncements,
+        meta: {
+          authRequired: true
+        }
       },
       {
         path: 'auth',
@@ -65,8 +72,23 @@ const routes = [
   }
 ]
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
 })
+
+router.beforeResolve((to, from, next) => {
+  let isUserSignedIn = store.getters['user/getAuthState']
+  if (to.meta.authRequired) {
+    if (isUserSignedIn) {
+      next()
+    } else {
+      next('/auth')
+    }
+  } else {
+    next()
+  }
+})
+
+export default router

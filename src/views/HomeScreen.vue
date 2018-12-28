@@ -6,13 +6,18 @@ const NO_USER_SIGNED_IN = false
 
 export default {
   name: 'HomeScreen',
-  beforeRouteEnter (to, from, next) {
-    firebase.auth().onAuthStateChanged((user) => {
-      user
-        ? store.dispatch('user/setAuthState', USER_SIGNED_IN)
-        : store.dispatch('user/setAuthState', NO_USER_SIGNED_IN)
+  async beforeRouteEnter (to, from, next) {
+    try {
+      await firebase.auth().onAuthStateChanged((user) => {
+        user
+          ? store.dispatch('user/setAuthState', USER_SIGNED_IN)
+          : store.dispatch('user/setAuthState', NO_USER_SIGNED_IN)
+      })
+    } catch (e) {
+      console.error(e)
+    } finally {
       next()
-    })
+    }
   }
 }
 </script>

@@ -1,5 +1,7 @@
 <script>
 import firebase from 'firebase/app'
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'SendSms',
   data () {
@@ -8,6 +10,12 @@ export default {
       smsSent: false,
       phoneDisabled: false
     }
+  },
+  computed: {
+    ...mapGetters('user', ['getAuthState'])
+  },
+  beforeMount () {
+    if (this.getAuthState) this.$router.push({ name: 'AnnouncementsList' })
   },
   methods: {
     async sendSMS () {

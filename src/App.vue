@@ -1,16 +1,20 @@
 <script>
 import AppNavigationDrawer from '@/components/_common/AppNavigationDrawer'
+import AppSnackbar from '@/plugins/snackbar/AppSnackbar'
 
 export default {
   name: 'App',
   components: {
-    AppNavigationDrawer
+    AppNavigationDrawer,
+    AppSnackbar
   }
 }
 </script>
 
 <template>
   <v-app>
+    <app-snackbar/>
+
     <app-navigation-drawer/>
 
     <app-toolbar/>

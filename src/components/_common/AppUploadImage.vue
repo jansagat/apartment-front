@@ -1,7 +1,7 @@
 <script>
-import firebase from 'firebase/app'
 import { required } from '@/utils/validationRules'
 import ImagesGrid from './AppImagesGrid'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'AppUploadImage',
@@ -43,6 +43,7 @@ export default {
         })
         if (index === 0 && !this.hasMainImage()) this.setFirstImageAsMain()
       })
+      this.setNewAnnouncementImages(this.images)
       this.cleatInput()
     },
     cleatInput () {
@@ -59,16 +60,9 @@ export default {
       }
       return true
     },
-    uploadImagesToStorage () {
-      const ref = firebase.storage().ref()
-      const imagesRef = ref.child('images/somehash/image.jpg')
-      const file = this.images[0]
-      imagesRef.put(file.image).then(snapshot => {
-        console.log(snapshot)
-      })
-    },
     setFirstImageAsMain () {
       this.images[0].main = true
+      this.setNewAnnouncementImages(this.images)
     },
     deleteImage (index, e) {
       e.stopPropagation()
@@ -76,6 +70,7 @@ export default {
       this.images.splice(index, 1)
       if (!this.hasMainImage() && this.images.length > 0) this.setFirstImageAsMain()
       this.imageInput.value = ''
+      this.setNewAnnouncementImages(this.images)
     },
     hasMainImage () {
       return this.images.find(image => image.main === true)
@@ -88,10 +83,12 @@ export default {
           image.main = true
         }
       })
+      this.setNewAnnouncementImages(this.images)
     },
     async uploadImageBtn () {
       this.$refs.imageInput.click()
-    }
+    },
+    ...mapActions('newAnnouncement', ['setNewAnnouncementImages'])
   }
 }
 </script>

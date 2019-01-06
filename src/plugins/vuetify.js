@@ -6,7 +6,8 @@ import Vuetify, {
   VToolbar,
   VIcon,
   VBtn,
-  VImg
+  VImg,
+  VProgressCircular
 } from 'vuetify/lib'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import 'vuetify/src/stylus/app.styl'
@@ -27,6 +28,7 @@ Vue.use(Vuetify, {
     VIcon,
     transitions,
     VBtn,
-    VImg
+    VImg,
+    VProgressCircular
   }
 })

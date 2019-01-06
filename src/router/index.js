@@ -9,6 +9,7 @@ import ModerateAnnouncements from '@/views/ModerateAnnouncements'
 import AuthScreen from '@/views/AuthScreen'
 import SendSms from '@/views/Auth/SendSms'
 import SignIn from '@/views/Auth/SignIn'
+import SendNewAnnouncement from '@/views/SendNewAnnouncement'
 import store from '@/store'
 
 Vue.use(Router)
@@ -39,7 +40,12 @@ const routes = [
       {
         path: 'add-announcement',
         name: 'AddAnnouncement',
-        component: AddAnnouncement,
+        component: AddAnnouncement
+      },
+      {
+        path: 'send-new-announcement',
+        name: 'SendNewAnnouncement',
+        component: SendNewAnnouncement,
         meta: {
           authRequired: true
         }
@@ -59,12 +65,14 @@ const routes = [
           {
             path: '',
             name: 'SendSms',
-            component: SendSms
+            component: SendSms,
+            props: true
           },
           {
             path: 'sign-in',
             name: 'SignIn',
-            component: SignIn
+            component: SignIn,
+            props: true
           }
         ]
       }

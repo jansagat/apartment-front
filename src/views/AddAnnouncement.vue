@@ -5,6 +5,10 @@ import {
   number,
   phone
 } from '@/utils/validationRules'
+import {
+  mapActions,
+  mapGetters
+} from 'vuex'
 export default {
   name: 'AddAnnouncement',
   components: { AppUploadImage },
@@ -25,12 +29,23 @@ export default {
       ],
       payload: {
         price: null,
-        phone: '+'
+        phone: '+',
+        offerTypeId: 1,
+        propertyTypeId: 1,
+        area: null,
+        cityId: 1,
+        address: null,
+        rooms: null,
+        floor: null,
+        description: null
       },
       required,
       number,
       phone
     }
+  },
+  computed: {
+    ...mapGetters('user', ['getAuthState'])
   },
   watch: {
     'payload.phone' (value) {
@@ -43,11 +58,21 @@ export default {
     inputsValidation () {
       return this.$refs.announcementForm.validate()
     },
-    uploadToFirestore () {
+    sendNewAnnouncement () {
       if (!this.inputsValidation()) return
-
-      console.log('test')
-    }
+      this.setNewAnnouncement(this.payload)
+      if (this.getAuthState) {
+        this.$router.push({ name: 'SendNewAnnouncement' })
+      } else {
+        this.$router.push({
+          name: 'SendSms',
+          params: {
+            redirectToUrlName: 'SendNewAnnouncement'
+          }
+        })
+      }
+    },
+    ...mapActions('newAnnouncement', ['setNewAnnouncement'])
   }
 }
 </script>
@@ -58,19 +83,19 @@ export default {
       <v-flex xs6 pt-2 pl-2 pr-1>
         <v-select
           :items="offerType"
-          :value="1"
           item-text="name"
           item-value="id"
           :rules="required"
+          v-model="payload.offerTypeId"
         ></v-select>
       </v-flex>
       <v-flex xs6 pt-2 pl-1 pr-2>
         <v-select
           :items="propertyType"
-          :value="1"
           item-text="name"
           item-value="id"
           :rules="required"
+          v-model="payload.propertyTypeId"
         ></v-select>
       </v-flex>
       <v-flex xs6 pl-2 pr-1>
@@ -86,22 +111,24 @@ export default {
           label="Площадь м2"
           type="number"
           :rules="number"
+          v-model="payload.area"
         ></v-text-field>
       </v-flex>
       <v-flex xs6 pl-2 pr-1>
         <v-select
           :items="cities"
           label="Город"
-          :value="1"
           item-text="name"
           item-value="id"
           :rules="required"
+          v-model="payload.cityId"
         ></v-select>
       </v-flex>
       <v-flex xs6 pl-1 pr-2>
         <v-text-field
           label="Адрес"
           :rules="required"
+          v-model="payload.address"
         ></v-text-field>
       </v-flex>
       <v-flex xs6 pl-2 pr-1>
@@ -109,6 +136,7 @@ export default {
           label="Количество комнат"
           type="number"
           :rules="number"
+          v-model="payload.rooms"
         ></v-text-field>
       </v-flex>
       <v-flex xs6 pl-1 pr-2>
@@ -116,6 +144,7 @@ export default {
           label="Этаж"
           type="number"
           :rules="number"
+          v-model="payload.floor"
         ></v-text-field>
       </v-flex>
       <v-flex xs12 pl-2 pr-2>
@@ -124,6 +153,7 @@ export default {
           auto-grow
           rows="1"
           :rules="required"
+          v-model="payload.description"
         ></v-textarea>
       </v-flex>
       <v-flex xs12 pl-2 pr-2>
@@ -143,7 +173,7 @@ export default {
           round
           color="primary"
           block
-          @click="uploadToFirestore"
+          @click="sendNewAnnouncement"
         >
           Отправить
         </v-btn>

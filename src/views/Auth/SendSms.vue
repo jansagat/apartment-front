@@ -4,6 +4,9 @@ import { mapGetters } from 'vuex'
 
 export default {
   name: 'SendSms',
+  props: {
+    redirectToUrlName: String
+  },
   data () {
     return {
       phoneNumber: null,
@@ -25,7 +28,12 @@ export default {
       const appVerifier = window.recaptchaVerifier
       try {
         window.confirmationResult = await firebase.auth().signInWithPhoneNumber(this.phoneNumber, appVerifier)
-        this.$router.push({ name: 'SignIn' })
+        this.$router.push({
+          name: 'SignIn',
+          params: {
+            redirectToUrlName: this.redirectToUrlName
+          }
+        })
       } catch (e) {
         console.error(e)
       }

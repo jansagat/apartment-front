@@ -1,9 +1,13 @@
 <script>
 import CountdownTimer from '@/utils/CountdownTimer'
 const COUNTDOWN_TIME_IN_MIN = 1
+const DEFAULT_NEXT_ROUTE_NAME = 'AnnouncementsList'
 
 export default {
   name: 'SignIn',
+  props: {
+    redirectToUrlName: String
+  },
   data () {
     return {
       confirmCode: null,
@@ -27,7 +31,8 @@ export default {
     async signIn () {
       try {
         await window.confirmationResult.confirm(this.confirmCode)
-        this.$router.replace({ name: 'AnnouncementsList' })
+        const nextRouteName = this.redirectToUrlName ? this.redirectToUrlName : DEFAULT_NEXT_ROUTE_NAME
+        this.$router.replace({ name: nextRouteName })
       } catch (e) {
         console.error(e)
       }

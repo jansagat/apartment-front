@@ -1,12 +1,34 @@
 <script>
+import firebase from 'firebase/app'
+import 'firebase/storage'
+
 export default {
-  name: 'AnnouncementSingle',
+  name: 'AnnouncementCard',
   props: {
-    id: Number
+    id: Number,
+    announcement: Object
   },
   data () {
     return {
-      show: false
+      show: false,
+      image: null
+    }
+  },
+  computed: {
+    item () {
+      return this.announcement
+    }
+  },
+  mounted () {
+    if (this.item.images && this.item.images[0]) {
+      const storage = firebase.storage()
+      const storageRef = storage.ref()
+      storageRef.child(this.item.images[0]).getDownloadURL()
+        .then((url) => {
+          this.image = url
+        }).catch(function (error) {
+          console.error(error)
+        })
     }
   },
   methods: {
@@ -27,14 +49,15 @@ export default {
     <v-flex xs12 sm6 offset-sm3>
       <v-card>
         <v-img
-            src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-            height="200px"
+          v-if="image"
+          :src="image"
+          height="200px"
         >
         </v-img>
 
         <v-card-title primary-title>
           <div>
-            <div class="headline">Top western road trips</div>
+            <div class="headline">{{ item.address }}</div>
             <span class="grey--text">1,000 miles of wonder</span>
           </div>
         </v-card-title>

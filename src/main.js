@@ -13,6 +13,9 @@ import firebaseConfig from '@/config/firebase.config'
 Vue.config.productionTip = false
 
 firebase.initializeApp(firebaseConfig)
+const firestore = firebase.firestore()
+const settings = { timestampsInSnapshots: true }
+firestore.settings(settings)
 firebase.auth().languageCode = 'en'
 
 new Vue({

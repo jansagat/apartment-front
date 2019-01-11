@@ -45,47 +45,27 @@ export default {
 </script>
 
 <template>
-  <v-layout row>
+  <v-layout row @click="onClickOpenSingleAnnouncement">
     <v-flex xs12 sm6 offset-sm3>
       <v-card>
         <v-img
           v-if="image"
           :src="image"
-          height="200px"
-        >
-        </v-img>
+          height="190px"
+        />
+        <v-img
+          v-else
+          :src="require('@/assets/no-image.jpg')"
+          height="190px"
+        />
 
-        <v-card-title primary-title>
+        <v-card-title>
           <div>
-            <div class="headline">{{ item.address }}</div>
-            <span class="grey--text">1,000 miles of wonder</span>
+            <div class="headline">{{ item.price }} ₸</div>
+            <div><span class="">{{ item.floor }} комн., {{ item.area }} м<sup>2</sup>, этаж {{ item.floor }}</span></div>
+            <div><span class="grey--text">{{ item.address }}</span></div>
           </div>
         </v-card-title>
-
-        <v-card-actions>
-          <v-btn
-            flat
-          >
-            Share
-          </v-btn>
-          <v-btn
-            flat
-            color="purple"
-            @click="onClickOpenSingleAnnouncement"
-          >
-            Explore
-          </v-btn>
-          <v-spacer></v-spacer>
-          <v-btn icon @click="show = !show">
-            <v-icon>{{ show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
-          </v-btn>
-        </v-card-actions>
-
-        <v-slide-y-transition>
-          <v-card-text v-show="show">
-            I'm a thing. But, like most politicians, he promised more than he could deliver. You won't have time for sleeping, soldier, not with all the bed making you'll be doing. Then we'll go with that data file! Hey, you add a one and two zeros to that or we walk! You're going to do his laundry? I've got to find a way to escape.
-          </v-card-text>
-        </v-slide-y-transition>
       </v-card>
     </v-flex>
   </v-layout>

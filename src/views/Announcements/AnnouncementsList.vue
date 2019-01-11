@@ -16,7 +16,8 @@ export default {
   data () {
     return {
       screenBottom: false,
-      lastDoc: null
+      lastDoc: null,
+      loading: false
     }
   },
   computed: {
@@ -45,6 +46,7 @@ export default {
       this.screenBottom = elemTop < window.innerHeight && elemBottom >= 0
     },
     async fetchAnnouncementsFirstPage () {
+      this.loading = true
       try {
         let announcements = []
         const db = firebase.firestore()
@@ -57,12 +59,17 @@ export default {
       } catch (e) {
         console.error(e)
       }
+      this.loading = false
     },
     async fetchNextAnnouncements () {
+      this.loading = true
       try {
         let announcements = []
         const db = firebase.firestore()
-        if (!this.lastDoc) return
+        if (!this.lastDoc) {
+          this.loading = false
+          return
+        }
         const querySnapshots = await db.collection('announcements')
           .startAfter(this.lastDoc)
           .limit(10)
@@ -75,6 +82,7 @@ export default {
       } catch (e) {
         console.error(e)
       }
+      this.loading = false
     },
     onClickOpenFilterAnnouncements () {
       this.$router.push({ name: 'FilterAnnouncements' })
@@ -97,6 +105,14 @@ export default {
       @click.native="onClickOpenFilterAnnouncements"
     />
 
+    <div class="loader">
+      <v-progress-circular
+        v-if="loading"
+        indeterminate
+        color="primary"
+      ></v-progress-circular>
+    </div>
+
     <div class="end"></div>
   </div>
 </template>
@@ -104,4 +120,8 @@ export default {
 <style lang="sass" scoped>
 .announcements-list
   padding-bottom: 90px
+.loader
+  text-align: center
+  padding-top: 20px
+  z-index: 0
 </style>

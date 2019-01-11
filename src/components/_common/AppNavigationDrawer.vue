@@ -40,27 +40,27 @@ export default {
           <v-icon>home</v-icon>
         </v-list-tile-action>
         <v-list-tile-content>
-          <v-list-tile-title>Main</v-list-tile-title>
+          <v-list-tile-title>Главная</v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
       <v-list-tile
         @click="addAnnouncement"
       >
         <v-list-tile-action>
-          <v-icon>home</v-icon>
+          <v-icon>add</v-icon>
         </v-list-tile-action>
         <v-list-tile-content>
-          <v-list-tile-title>Add announcement</v-list-tile-title>
+          <v-list-tile-title>Добавить объявление</v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
       <v-list-tile
         @click="moderateAnnouncements"
       >
         <v-list-tile-action>
-          <v-icon>search</v-icon>
+          <v-icon>lock</v-icon>
         </v-list-tile-action>
         <v-list-tile-content>
-          <v-list-tile-title>Moderate Announcements</v-list-tile-title>
+          <v-list-tile-title>Модерация объявления</v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
     </v-list>

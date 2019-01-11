@@ -13,7 +13,10 @@ const mutations = {
     state.announcements = announcement
   },
   concatAnnouncements (state, announcement) {
+    console.log(announcement)
+    console.log(state.announcements)
     state.announcements = state.announcements.concat(announcement)
+    console.log(state.announcements)
   }
 }
 

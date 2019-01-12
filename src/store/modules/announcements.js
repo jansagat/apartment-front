@@ -9,23 +9,20 @@ const getters = {
 }
 
 const mutations = {
-  setAnnouncements (state, announcement) {
-    state.announcements = announcement
+  setAnnouncements (state, announcements) {
+    state.announcements = announcements
   },
-  concatAnnouncements (state, announcement) {
-    console.log(announcement)
-    console.log(state.announcements)
-    state.announcements = state.announcements.concat(announcement)
-    console.log(state.announcements)
+  concatAnnouncements (state, announcements) {
+    state.announcements = state.announcements.concat(announcements)
   }
 }
 
 const actions = {
-  setAnnouncements ({ commit }, announcement) {
-    commit('setAnnouncements', announcement)
+  setAnnouncements ({ commit }, announcements) {
+    commit('setAnnouncements', announcements)
   },
-  concatAnnouncements ({ commit }, announcement) {
-    commit('concatAnnouncements', announcement)
+  concatAnnouncements ({ commit }, announcements) {
+    commit('concatAnnouncements', announcements)
   }
 }
 

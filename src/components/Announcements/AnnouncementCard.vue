@@ -1,34 +1,22 @@
 <script>
-import firebase from 'firebase/app'
 import 'firebase/storage'
 
 export default {
   name: 'AnnouncementCard',
   props: {
-    id: Number,
     announcement: Object
   },
   data () {
     return {
-      show: false,
-      image: null
+      show: false
     }
   },
   computed: {
     item () {
       return this.announcement
-    }
-  },
-  mounted () {
-    if (this.item.images && this.item.images[0]) {
-      const storage = firebase.storage()
-      const storageRef = storage.ref()
-      storageRef.child(this.item.images[0]).getDownloadURL()
-        .then((url) => {
-          this.image = url
-        }).catch(function (error) {
-          console.error(error)
-        })
+    },
+    itemsFirstImage () {
+      return this.announcement.imagesDownloadLinks[0]
     }
   },
   methods: {
@@ -36,7 +24,8 @@ export default {
       this.$router.push({
         name: 'AnnouncementSingle',
         params: {
-          id: this.id
+          announcement: this.announcement,
+          id: this.announcement.id
         }
       })
     }
@@ -49,8 +38,8 @@ export default {
     <v-flex xs12 sm6 offset-sm3>
       <v-card>
         <v-img
-          v-if="image"
-          :src="image"
+          v-if="itemsFirstImage"
+          :src="itemsFirstImage"
           height="190px"
         />
         <v-img

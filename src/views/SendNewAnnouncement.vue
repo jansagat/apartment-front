@@ -6,6 +6,7 @@ import {
 } from 'vuex'
 import uuidv4 from 'uuid/v4'
 import AppSuccessAnimation from '@/components/_common/AppSuccessAnimation'
+import { getDownloadLinks } from '../utils/firebaseUtils'
 
 export default {
   name: 'SendNewAnnouncement',
@@ -23,7 +24,8 @@ export default {
     progressValue () {
       return this.loadedCount > 0 ? Math.floor(100 * this.loadedCount / (this.imagesLength + 1)) : 0
     },
-    ...mapGetters('newAnnouncement', ['getNewAnnouncementImages', 'getNewAnnouncement'])
+    ...mapGetters('newAnnouncement', ['getNewAnnouncementImages', 'getNewAnnouncement']),
+    ...mapGetters('user', ['getUserInfo'])
   },
   beforeMount () {
     this.imagesLength = this.getNewAnnouncementImages.length
@@ -32,13 +34,15 @@ export default {
     await this.uploadImages()
   },
   methods: {
-    async sendDataToStore () {
+    async sendDataToStore (imagesDownloadLinks) {
       const db = firebase.firestore()
       db.settings({ timestampsInSnapshots: true })
       try {
-        const docRef = await db.collection('announcements').add({
+        await db.collection('announcements').add({
           ...this.getNewAnnouncement,
-          images: this.uploadedImagesPaths
+          images: this.uploadedImagesPaths,
+          imagesDownloadLinks,
+          userId: this.getUserInfo.uid
         })
         this.loadedCount++
         setTimeout(() => {
@@ -46,17 +50,20 @@ export default {
           this.setNewAnnouncement(null)
           this.setNewAnnouncementImages(null)
         }, 600)
-        console.log('Document written with ID: ', docRef.id)
       } catch (e) {
         console.error('Error adding document: ', e)
       }
+    },
+    async getImagesDownloadLinks () {
+      const imagesDownloadLinks = await getDownloadLinks(this.uploadedImagesPaths)
+      this.sendDataToStore(imagesDownloadLinks)
     },
     async uploadImages () {
       try {
         await Promise.all(
           this.getNewAnnouncementImages.map(image => this.putImageToStorage(image))
         )
-        this.sendDataToStore()
+        this.getImagesDownloadLinks()
       } catch (e) {
         console.log(`Some failed: `, e.message)
       }

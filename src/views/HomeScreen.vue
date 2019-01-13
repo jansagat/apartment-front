@@ -17,7 +17,8 @@ export default {
           user
             ? store.dispatch('user/setAuthState', USER_SIGNED_IN) &&
             store.dispatch('user/setUserInfo', {
-              phone: user.phoneNumber
+              phone: user.phoneNumber,
+              uid: user.uid
             })
             : store.dispatch('user/setAuthState', NO_USER_SIGNED_IN)
           resolve()

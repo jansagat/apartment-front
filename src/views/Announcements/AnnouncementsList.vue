@@ -53,7 +53,9 @@ export default {
         const querySnapshots = await db.collection('announcements').limit(10).get()
         this.lastDoc = querySnapshots.docs[querySnapshots.docs.length - 1]
         querySnapshots.forEach((doc) => {
-          announcements.push(doc.data())
+          const docData = doc.data()
+          docData.id = doc.id
+          announcements.push(docData)
         })
         this.setAnnouncements(announcements)
       } catch (e) {
@@ -76,7 +78,9 @@ export default {
           .get()
         this.lastDoc = querySnapshots.docs[querySnapshots.docs.length - 1]
         querySnapshots.forEach((doc) => {
-          announcements.push(doc.data())
+          const docData = doc.data()
+          docData.id = doc.id
+          announcements.push(docData)
         })
         this.concatAnnouncements(announcements)
       } catch (e) {
@@ -97,7 +101,6 @@ export default {
     <announcement-card
       v-for="(announcement, index) in getAnnouncements"
       :announcement="announcement"
-      :id="index"
       :key="index"
     />
 

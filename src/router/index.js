@@ -30,7 +30,10 @@ const routes = [
         path: 'announcement/:id',
         name: 'AnnouncementSingle',
         component: AnnouncementSingle,
-        props: (route) => ({ id: route.params.id })
+        props: (route) => ({
+          id: route.params.id,
+          announcement: route.params.announcement
+        })
       },
       {
         path: 'filter-announcements',

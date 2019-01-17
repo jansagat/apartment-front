@@ -65,7 +65,7 @@ export default {
         )
         this.getImagesDownloadLinks()
       } catch (e) {
-        console.log(`Some failed: `, e.message)
+        console.error(`Some failed: `, e.message)
       }
     },
     putImageToStorage (image) {
@@ -75,7 +75,7 @@ export default {
           this.uploadedImagesPaths.push(snapshot.ref.fullPath)
           this.loadedCount++
         }).catch((e) => {
-          console.log(e.message)
+          console.error(e.message)
         })
     },
     getImageExt (image) {

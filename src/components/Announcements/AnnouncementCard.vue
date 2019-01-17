@@ -16,15 +16,17 @@ export default {
       return this.announcement
     },
     itemsFirstImage () {
-      return this.announcement.imagesDownloadLinks[0]
+      if (this.announcement.imagesDownloadLinks[0]) {
+        return this.announcement.imagesDownloadLinks[0].replace(/(images%2F)(.*(.jpg|.png|.jpeg))/, '$1thumb_$2')
+      }
+      return null
     }
   },
   methods: {
     onClickOpenSingleAnnouncement () {
       this.$router.push({
-        name: 'AnnouncementSingle',
+        name: 'AnnouncementSingleFull',
         params: {
-          announcement: this.announcement,
           id: this.announcement.id
         }
       })

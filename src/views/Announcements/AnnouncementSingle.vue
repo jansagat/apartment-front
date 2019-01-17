@@ -1,22 +1,11 @@
 <script>
 export default {
-  name: 'AnnouncementSingle',
-  props: {
-    id: Number
-  },
-  data () {
-    return {
-      //
-    }
-  }
+  name: 'AnnouncementSingle'
 }
 </script>
 
 <template>
-  <div>
-    <h1>Single announcement page</h1>
-    <h2>ID: {{ id }}</h2>
-  </div>
+  <router-view/>
 </template>
 
 <style>

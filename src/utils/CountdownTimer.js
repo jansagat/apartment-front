@@ -1,5 +1,5 @@
 import Observable from './Observable'
-import AppConstants from '@/constants/AppConstants'
+import { MIN_IN_SEC, SEC_IN_MS } from '@/constants/AppConstants'
 const COUNTDOWN_INTERVAL = 100
 
 class CountdownTimer extends Observable {
@@ -10,7 +10,7 @@ class CountdownTimer extends Observable {
   }
 
   minutesToMs (minutes) {
-    return minutes * AppConstants.MIN_IN_SEC * AppConstants.SEC_IN_MS
+    return minutes * MIN_IN_SEC * SEC_IN_MS
   }
 
   startTime () {

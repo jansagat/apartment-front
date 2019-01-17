@@ -1,5 +1,6 @@
 <script>
 import AppUploadImage from '@/components/_common/AppUploadImage'
+import { OFFER_TYPE, CITIES, PROPERTY_TYPE } from '@/constants/AppConstants'
 import {
   required,
   number,
@@ -14,19 +15,9 @@ export default {
   components: { AppUploadImage },
   data () {
     return {
-      cities: [
-        { id: 1, name: 'Астана' },
-        { id: 2, name: 'Алматы' }
-      ],
-      propertyType: [
-        { id: 1, name: 'квартиру' },
-        { id: 2, name: 'дом' },
-        { id: 3, name: 'другой тип недвиж.' }
-      ],
-      offerType: [
-        { id: 1, name: 'Сдаю' },
-        { id: 2, name: 'Продаю' }
-      ],
+      CITIES,
+      PROPERTY_TYPE,
+      OFFER_TYPE,
       payload: {
         price: null,
         phone: '+',
@@ -82,7 +73,7 @@ export default {
   <v-layout row wrap>
       <v-flex xs6 pt-2 pl-2 pr-1>
         <v-select
-          :items="offerType"
+          :items="OFFER_TYPE"
           item-text="name"
           item-value="id"
           :rules="required"
@@ -91,7 +82,7 @@ export default {
       </v-flex>
       <v-flex xs6 pt-2 pl-1 pr-2>
         <v-select
-          :items="propertyType"
+          :items="PROPERTY_TYPE"
           item-text="name"
           item-value="id"
           :rules="required"
@@ -116,7 +107,7 @@ export default {
       </v-flex>
       <v-flex xs6 pl-2 pr-1>
         <v-select
-          :items="cities"
+          :items="CITIES"
           label="Город"
           item-text="name"
           item-value="id"

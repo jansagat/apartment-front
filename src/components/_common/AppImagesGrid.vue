@@ -14,14 +14,10 @@ export default {
   },
   methods: {
     deleteImage (index, $event) {
-      console.log(index, 'index 1')
       this.$emit('deleteImage', index, $event)
     },
     setMainImage (index) {
       this.$emit('setMainImage', index)
-    },
-    randomKey () {
-      return new Date().getTime()
     }
   }
 }

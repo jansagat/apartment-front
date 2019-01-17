@@ -31,6 +31,7 @@ export default {
     :value="getDrawer"
     @input="actionDrawer"
     app
+    touchless
   >
     <v-list dense>
       <v-list-tile
@@ -51,16 +52,6 @@ export default {
         </v-list-tile-action>
         <v-list-tile-content>
           <v-list-tile-title>Добавить объявление</v-list-tile-title>
-        </v-list-tile-content>
-      </v-list-tile>
-      <v-list-tile
-        @click="moderateAnnouncements"
-      >
-        <v-list-tile-action>
-          <v-icon>lock</v-icon>
-        </v-list-tile-action>
-        <v-list-tile-content>
-          <v-list-tile-title>Модерация объявления</v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
     </v-list>

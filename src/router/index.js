@@ -11,6 +11,8 @@ import SendSms from '@/views/Auth/SendSms'
 import SignIn from '@/views/Auth/SignIn'
 import SendNewAnnouncement from '@/views/SendNewAnnouncement'
 import store from '@/store'
+import AnnouncementSingleImage from '../views/Announcements/AnnouncementSingleImages'
+import AnnouncementSingleFull from '../views/Announcements/AnnouncementSingleFull'
 
 Vue.use(Router)
 
@@ -28,12 +30,21 @@ const routes = [
       },
       {
         path: 'announcement/:id',
-        name: 'AnnouncementSingle',
         component: AnnouncementSingle,
-        props: (route) => ({
-          id: route.params.id,
-          announcement: route.params.announcement
-        })
+        children: [
+          {
+            path: '',
+            name: 'AnnouncementSingleFull',
+            component: AnnouncementSingleFull,
+            props: true
+          },
+          {
+            path: 'image',
+            name: 'AnnouncementSingleImage',
+            component: AnnouncementSingleImage,
+            props: true
+          }
+        ]
       },
       {
         path: 'filter-announcements',

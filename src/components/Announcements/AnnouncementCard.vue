@@ -16,8 +16,10 @@ export default {
       return this.announcement
     },
     itemsFirstImage () {
-      if (!this.announcement.imagesDownloadLinks) return null
-      return this.announcement.imagesDownloadLinks[0].replace(/(images%2F)(.*(.jpg|.png|.jpeg))/, '$1thumb_$2')
+      if (this.announcement.imagesDownloadLinks && this.announcement.imagesDownloadLinks[0]) {
+        return this.announcement.imagesDownloadLinks[0].replace(/(images%2F)(.*(.jpg|.png|.jpeg))/, '$1thumb_$2')
+      }
+      return null
     }
   },
   methods: {

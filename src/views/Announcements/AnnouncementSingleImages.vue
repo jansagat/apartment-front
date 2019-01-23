@@ -11,6 +11,11 @@ export default {
       swiperInstance: null
     }
   },
+  computed: {
+    thumbImages () {
+      return this.images.map(item => item.replace(/(images%2F)(.*(.jpg|.png|.jpeg))/, '$1thumb_$2'))
+    }
+  },
   mounted () {
     this.swiperInstance = new Swiper(this.$refs.swiper, {
       zoom: true
@@ -24,7 +29,7 @@ export default {
       <div ref="swiper" class="swiper-container">
         <div class="swiper-wrapper">
           <div
-            v-for="(image, index) in images"
+            v-for="(image, index) in thumbImages"
             :key="index"
             class="swiper-slide"
           >

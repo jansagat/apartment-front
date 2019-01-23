@@ -48,7 +48,7 @@ export default {
         setTimeout(() => {
           this.loadingStatus = 'success'
           this.setNewAnnouncement(null)
-          this.setNewAnnouncementImages(null)
+          this.setNewAnnouncementImages([])
         }, 600)
       } catch (e) {
         console.error('Error adding document: ', e)

@@ -1,6 +1,6 @@
 const state = {
   newAnnouncement: null,
-  newAnnouncementImages: null
+  newAnnouncementImages: []
 }
 
 const getters = {

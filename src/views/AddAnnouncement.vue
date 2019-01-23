@@ -1,6 +1,6 @@
 <script>
 import AppUploadImage from '@/components/_common/AppUploadImage'
-import { OFFER_TYPE, CITIES, PROPERTY_TYPE } from '@/constants/AppConstants'
+import { OFFER_TYPE, CITIES, PROPERTY_TYPE, RENT_TIME } from '@/constants/AppConstants'
 import {
   required,
   number,
@@ -18,6 +18,7 @@ export default {
       CITIES,
       PROPERTY_TYPE,
       OFFER_TYPE,
+      RENT_TIME,
       payload: {
         price: null,
         phone: '+',
@@ -28,7 +29,9 @@ export default {
         address: null,
         rooms: null,
         floor: null,
-        description: null
+        totalFloor: null,
+        description: null,
+        rentTimeId: 1
       },
       required,
       number,
@@ -36,6 +39,9 @@ export default {
     }
   },
   computed: {
+    isOfferTypeSharing () {
+      return this.payload.offerTypeId === 2
+    },
     ...mapGetters('user', ['getAuthState'])
   },
   watch: {
@@ -71,7 +77,7 @@ export default {
 <template>
 <v-form ref="announcementForm" row wrap>
   <v-layout row wrap>
-      <v-flex xs6 pt-2 pl-2 pr-1>
+      <v-flex :class="[isOfferTypeSharing ? 'xs12 pl-2 pr-2 pt-2' : 'xs6 pl-2 pr-1 pt-2']">
         <v-select
           :items="OFFER_TYPE"
           item-text="name"
@@ -80,7 +86,10 @@ export default {
           v-model="payload.offerTypeId"
         ></v-select>
       </v-flex>
-      <v-flex xs6 pt-2 pl-1 pr-2>
+      <v-flex
+        v-if="!isOfferTypeSharing"
+        xs6 pt-2 pl-1 pr-2
+      >
         <v-select
           :items="PROPERTY_TYPE"
           item-text="name"
@@ -98,12 +107,13 @@ export default {
         ></v-text-field>
       </v-flex>
       <v-flex xs6 pl-1 pr-2>
-        <v-text-field
-          label="Площадь м2"
-          type="number"
-          :rules="number"
-          v-model="payload.area"
-        ></v-text-field>
+        <v-select
+          :items="RENT_TIME"
+          item-text="name"
+          item-value="id"
+          :rules="required"
+          v-model="payload.rentTimeId"
+        ></v-select>
       </v-flex>
       <v-flex xs6 pl-2 pr-1>
         <v-select
@@ -117,25 +127,33 @@ export default {
       </v-flex>
       <v-flex xs6 pl-1 pr-2>
         <v-text-field
-          label="Адрес"
-          :rules="required"
-          v-model="payload.address"
-        ></v-text-field>
-      </v-flex>
-      <v-flex xs6 pl-2 pr-1>
-        <v-text-field
           label="Количество комнат"
           type="number"
           :rules="number"
           v-model="payload.rooms"
         ></v-text-field>
       </v-flex>
-      <v-flex xs6 pl-1 pr-2>
+      <v-flex xs6 pl-2 pr-1>
         <v-text-field
           label="Этаж"
           type="number"
           :rules="number"
           v-model="payload.floor"
+        ></v-text-field>
+      </v-flex>
+      <v-flex xs6 pl-1 pr-2>
+        <v-text-field
+          label="Всего этажей"
+          type="number"
+          :rules="number"
+          v-model="payload.totalFloor"
+        ></v-text-field>
+      </v-flex>
+      <v-flex xs12 pl-2 pr-2>
+        <v-text-field
+          label="Адрес"
+          :rules="required"
+          v-model="payload.address"
         ></v-text-field>
       </v-flex>
       <v-flex xs12 pl-2 pr-2>

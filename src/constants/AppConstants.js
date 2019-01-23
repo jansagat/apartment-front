@@ -5,14 +5,22 @@ const CITIES = [
   { id: 1, name: 'Астана' },
   { id: 2, name: 'Алматы' }
 ]
-const PROPERTY_TYPE = [
+const PROPERTY_TYPE = [ // TODO Announcement entity
   { id: 1, name: 'квартиру' },
-  { id: 2, name: 'дом' },
-  { id: 3, name: 'другой тип недвиж.' }
+  { id: 2, name: 'комнату' },
+  { id: 3, name: 'дом' },
+  { id: 4, name: 'другой тип недвиж.' }
 ]
 const OFFER_TYPE = [
   { id: 1, name: 'Сдаю' },
-  { id: 2, name: 'Продаю' }
+  { id: 2, name: 'Возьму на подселение' },
+  { id: 3, name: 'Продаю' }
+]
+const RENT_TIME = [
+  { id: 1, name: 'помесячно' },
+  { id: 2, name: 'посуточно' },
+  { id: 3, name: 'поквартально' },
+  { id: 4, name: 'по часам' }
 ]
 
 export {
@@ -20,5 +28,6 @@ export {
   MIN_IN_SEC,
   CITIES,
   PROPERTY_TYPE,
-  OFFER_TYPE
+  OFFER_TYPE,
+  RENT_TIME
 }

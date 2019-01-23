@@ -23,6 +23,7 @@ export default {
       return CITIES.find(item => item.id === this.item.cityId).name
     },
     itemThumbImages () {
+      if (!this.item.imagesDownloadLinks) return []
       return this.item.imagesDownloadLinks.map(item => item.replace(/(images%2F)(.*(.jpg|.png|.jpeg))/, '$1thumb_$2'))
     },
     ...mapGetters('announcements', ['getAnnouncements'])
@@ -44,7 +45,7 @@ export default {
 <template>
   <div class="announcement-single">
     <v-carousel
-      v-if="item"
+      v-if="itemThumbImages.length > 0"
       :hide-controls="true"
       :hide-delimiters="true"
       height="200"
@@ -70,9 +71,9 @@ export default {
             </div>
             <div class="mt-1 mb-1"><span>{{ item.address }}</span></div>
           </div>
-          <div>
-            <p>{{ item.description }}</p>
-          </div>
+        <v-card-text class="pa-0">
+          <p>{{ item.description }}</p>
+        </v-card-text>
         </v-card-title>
         <v-card-actions
           class='card-actions'
@@ -121,6 +122,7 @@ export default {
 
 .announcement-card
   height: 100%
+  width: 100%
   display: flex
   flex-direction: column
   justify-content: space-between

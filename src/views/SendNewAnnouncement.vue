@@ -31,6 +31,9 @@ export default {
     this.imagesLength = this.getNewAnnouncementImages.length
   },
   async mounted () {
+    if (!this.getNewAnnouncement) {
+      this.$router.replace({ name: 'AddAnnouncement' })
+    }
     await this.uploadImages()
   },
   methods: {

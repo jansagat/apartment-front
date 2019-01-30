@@ -25,7 +25,10 @@ export default {
 
 <template>
   <v-flex xs12 sm6 offset-sm3>
-    <v-container grid-list-sm fluid>
+    <v-container
+      v-if="images.length > 0"
+      grid-list-sm fluid
+    >
       <v-layout row wrap>
         <v-flex
           v-for="(image, index) in images"

@@ -11,13 +11,14 @@ export default {
     AnnouncementsFilterButton
   },
   props: {
-    filterParams: Object // TODO filter parameter processing
+    filteredQuerySnapshots: Object
   },
   data () {
     return {
       screenBottom: false,
       lastDoc: null,
-      loading: false
+      loading: false,
+      querySnapshots: null
     }
   },
   computed: {
@@ -50,9 +51,13 @@ export default {
       try {
         let announcements = []
         const db = firebase.firestore()
-        const querySnapshots = await db.collection('announcements').limit(10).get()
-        this.lastDoc = querySnapshots.docs[querySnapshots.docs.length - 1]
-        querySnapshots.forEach((doc) => {
+        if (this.filteredQuerySnapshots) {
+          this.querySnapshots = await this.filteredQuerySnapshots.limit(10).get()
+        } else {
+          this.querySnapshots = await db.collection('announcements').limit(4).get()
+        }
+        this.lastDoc = this.querySnapshots.docs[this.querySnapshots.docs.length - 1]
+        this.querySnapshots.forEach((doc) => {
           const docData = doc.data()
           docData.id = doc.id
           announcements.push(docData)
@@ -72,12 +77,17 @@ export default {
           this.loading = false
           return
         }
-        const querySnapshots = await db.collection('announcements')
+        if (this.filteredQuerySnapshots) {
+          this.querySnapshots = await this.filteredQuerySnapshots
+        } else {
+          this.querySnapshots = await db.collection('announcements')
+        }
+        this.querySnapshots = await this.querySnapshots
           .startAfter(this.lastDoc)
           .limit(10)
           .get()
-        this.lastDoc = querySnapshots.docs[querySnapshots.docs.length - 1]
-        querySnapshots.forEach((doc) => {
+        this.lastDoc = this.querySnapshots.docs[this.querySnapshots.docs.length - 1]
+        this.querySnapshots.forEach((doc) => {
           const docData = doc.data()
           docData.id = doc.id
           announcements.push(docData)

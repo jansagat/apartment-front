@@ -100,7 +100,8 @@ export default {
       </v-flex>
       <v-flex xs6 pl-2 pr-1>
         <v-text-field
-          label="Цена ₸"
+          label="Цена"
+          suffix="₸"
           type="number"
           :rules="number"
           v-model="payload.price"
@@ -149,13 +150,21 @@ export default {
           v-model="payload.totalFloor"
         ></v-text-field>
       </v-flex>
-      <v-flex xs12 pl-2 pr-2>
+      <v-flex xs6 pl-2 pr-1>
         <v-text-field
           label="Адрес"
           :rules="required"
           v-model="payload.address"
         ></v-text-field>
       </v-flex>
+    <v-flex xs6 pl-1 pr-2>
+      <v-text-field
+        label="Площадь м2"
+        type="number"
+        :rules="number"
+        v-model="payload.area"
+      ></v-text-field>
+    </v-flex>
       <v-flex xs12 pl-2 pr-2>
         <v-textarea
           label="Описание"
@@ -174,10 +183,10 @@ export default {
           v-model="payload.phone"
         ></v-text-field>
       </v-flex>
-      <app-upload-image
-
-      />
-      <v-flex xs12 pl-2 pr-2>
+    
+      <app-upload-image/>
+    
+      <v-flex xs12 pl-2 pr-2 pb-3>
         <v-btn
           round
           color="primary"

@@ -12,9 +12,9 @@ const PROPERTY_TYPE = [ // TODO Announcement entity
   { id: 4, name: 'другой тип недвиж.' }
 ]
 const OFFER_TYPE = [
-  { id: 1, name: 'Сдаю' },
-  { id: 2, name: 'Возьму на подселение' },
-  { id: 3, name: 'Продаю' }
+  { id: 1, name: 'Сдаю', secondName: 'Снять' },
+  { id: 2, name: 'Возьму на подселение', secondName: 'Подселение' },
+  { id: 3, name: 'Продаю', secondName: 'Купить' }
 ]
 const RENT_TIME = [
   { id: 1, name: 'помесячно' },

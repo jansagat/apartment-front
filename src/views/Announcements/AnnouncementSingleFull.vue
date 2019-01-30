@@ -26,6 +26,9 @@ export default {
       if (!this.item.imagesDownloadLinks) return []
       return this.item.imagesDownloadLinks.map(item => item.replace(/(images%2F)(.*(.jpg|.png|.jpeg))/, '$1thumb_$2'))
     },
+    offerType () {
+      return this.OFFER_TYPE.find(item => item.id === this.item.offerTypeId).name
+    },
     ...mapGetters('announcements', ['getAnnouncements'])
   },
   methods: {
@@ -67,7 +70,7 @@ export default {
           <div>
             <div class="headline mt-1">{{ item.price }} ₸</div>
             <div class="mt-1">
-              <span>{{ item.floor }} комн., {{ item.area }} м<sup>2</sup>, этаж {{ item.floor }}, г. {{ itemCity }}</span>
+              <span>{{offerType}} {{ item.floor }} комн., {{ item.area }} м<sup>2</sup>, {{ item.floor }} этаж, г. {{ itemCity }}</span>
             </div>
             <div class="mt-1 mb-1"><span>{{ item.address }}</span></div>
           </div>

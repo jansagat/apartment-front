@@ -1,5 +1,6 @@
 <script>
 import 'firebase/storage'
+import { OFFER_TYPE } from '../../constants/AppConstants'
 
 export default {
   name: 'AnnouncementCard',
@@ -8,7 +9,8 @@ export default {
   },
   data () {
     return {
-      show: false
+      show: false,
+      OFFER_TYPE
     }
   },
   computed: {
@@ -20,6 +22,9 @@ export default {
         return this.announcement.imagesDownloadLinks[0].replace(/(images%2F)(.*(.jpg|.png|.jpeg))/, '$1thumb_$2')
       }
       return null
+    },
+    offerType () {
+      return this.OFFER_TYPE.find(item => item.id === this.item.offerTypeId).name
     }
   },
   methods: {
@@ -53,7 +58,7 @@ export default {
         <v-card-title>
           <div>
             <div class="headline">{{ item.price }} ₸</div>
-            <div><span class="">{{ item.floor }} комн., {{ item.area }} м<sup>2</sup>, этаж {{ item.floor }}</span></div>
+            <div><span class="">{{ offerType }} {{ item.floor }} комн., {{ item.area }} м<sup>2</sup>, {{ item.floor }} этаж</span></div>
             <div><span class="grey--text">{{ item.address }}</span></div>
           </div>
         </v-card-title>

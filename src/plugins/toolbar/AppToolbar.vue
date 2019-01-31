@@ -4,7 +4,8 @@ export default {
   name: 'AppToolbar',
   data () {
     return {
-      isMainPage: true
+      isMainPage: true,
+      title: ''
     }
   },
   computed: {
@@ -17,8 +18,15 @@ export default {
   },
   mounted () {
     this.checkPage()
+    this.$appToolbar._bind(this)
+  },
+  beforeDestroy () {
+    this.$appToolbar._unbind(this)
   },
   methods: {
+    setTitle (title) {
+      this.title = title
+    },
     checkPage () {
       this.isMainPage = this.$route.path === '/'
     },
@@ -46,12 +54,13 @@ export default {
     >
       <v-icon>arrow_back</v-icon>
     </v-btn>
-    <v-toolbar-title>
-      Application
+    <v-toolbar-title class="ml-0 title">
+      {{ title }}
     </v-toolbar-title>
   </v-toolbar>
 </template>
 
-<style scoped>
-
+<style lang="sass" scoped>
+div.title
+  font-size: 18px!important
 </style>

@@ -58,7 +58,7 @@ export default {
         <v-card-title>
           <div>
             <div class="headline">{{ item.price }} ₸</div>
-            <div><span class="">{{ offerType }} {{ item.floor }} комн., {{ item.area }} м<sup>2</sup>, {{ item.floor }} этаж</span></div>
+            <div><span class="">{{ offerType }} {{ item.rooms }} комн., {{ item.area }} м<sup>2</sup>, {{ item.floor }} этаж</span></div>
             <div><span class="grey--text">{{ item.address }}</span></div>
           </div>
         </v-card-title>

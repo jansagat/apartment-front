@@ -32,6 +32,7 @@ export default {
     }
   },
   mounted () {
+    this.$appToolbar.setTitle('Недвижимость')
     document.addEventListener('scroll', this.isScreenBottomDisplayed)
     this.fetchAnnouncementsFirstPage()
   },

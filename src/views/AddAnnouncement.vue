@@ -51,6 +51,9 @@ export default {
       }
     }
   },
+  mounted () {
+    this.$appToolbar.setTitle('Добавить объявление')
+  },
   methods: {
     inputsValidation () {
       return this.$refs.announcementForm.validate()

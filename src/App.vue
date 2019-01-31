@@ -1,12 +1,14 @@
 <script>
 import AppNavigationDrawer from '@/components/_common/AppNavigationDrawer'
 import AppSnackbar from '@/plugins/snackbar/AppSnackbar'
+import AppToolbar from '@/plugins/toolbar/AppToolbar'
 
 export default {
   name: 'App',
   components: {
     AppNavigationDrawer,
-    AppSnackbar
+    AppSnackbar,
+    AppToolbar
   }
 }
 </script>

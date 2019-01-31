@@ -31,6 +31,9 @@ export default {
     },
     ...mapGetters('announcements', ['getAnnouncements'])
   },
+  mounted () {
+    this.$appToolbar.setTitle(`${this.item.rooms} комн. за ${this.item.price} ₸`)
+  },
   methods: {
     onImageClick () {
       this.$router.push({
@@ -70,7 +73,7 @@ export default {
           <div>
             <div class="headline mt-1">{{ item.price }} ₸</div>
             <div class="mt-1">
-              <span>{{offerType}} {{ item.floor }} комн., {{ item.area }} м<sup>2</sup>, {{ item.floor }} этаж, г. {{ itemCity }}</span>
+              <span>{{offerType}} {{ item.rooms }} комн., {{ item.area }} м<sup>2</sup>, {{ item.floor }} этаж, г. {{ itemCity }}</span>
             </div>
             <div class="mt-1 mb-1"><span>{{ item.address }}</span></div>
           </div>

@@ -16,7 +16,7 @@ firebase.initializeApp(firebaseConfig)
 const firestore = firebase.firestore()
 const settings = { timestampsInSnapshots: true }
 firestore.settings(settings)
-firebase.auth().languageCode = 'en'
+firebase.auth().languageCode = 'ru'
 
 new Vue({
   router,

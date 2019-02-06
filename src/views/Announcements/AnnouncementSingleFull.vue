@@ -43,6 +43,9 @@ export default {
           initImageIndex: this.currentImageIndex
         }
       })
+    },
+    openPhoneCallApp (phone) {
+      this.$router.replace({ query: { tel: phone } })
     }
   }
 }
@@ -84,18 +87,14 @@ export default {
         <v-card-actions
           class='card-actions'
         >
-          <a
-            style="width:100%"
-            :href="'tel:' + item.phone"
+          <v-btn
+            round
+            color="primary"
+            block
+            @click="openPhoneCallApp(item.phone)"
           >
-            <v-btn
-              round
-              color="primary"
-              block
-            >
-              Позвонить
-            </v-btn>
-          </a>
+            Позвонить
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-flex>
@@ -108,20 +107,20 @@ export default {
   margin: 0
   padding: 0
   width: 100%
-  
+
 .item
   display: flex
   justify-content: space-between
-  
+
 .announcement-single
   display: flex
   flex-direction: column
   height: 100%
-  
+
 .announcement-carousel
   transform: translate3d(0, 0 ,0)
   overflow: initial!important
-  
+
 .announcement-data
   flex: 1 100%
   display: flex
@@ -132,7 +131,7 @@ export default {
   display: flex
   flex-direction: column
   justify-content: space-between
-  
+
 .card-actions
   padding-bottom: 40px
 </style>

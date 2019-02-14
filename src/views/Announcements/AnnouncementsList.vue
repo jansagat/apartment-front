@@ -30,10 +30,10 @@ export default {
       }
     }
   },
-  mounted () {
+  async mounted () {
     this.$appToolbar.setTitle('Недвижимость')
     document.addEventListener('scroll', this.isScreenBottomDisplayed)
-    if (!this.getAnnouncements.length > 0) {
+    if (this.filteredQuerySnapshots || !this.getAnnouncements.length > 0) {
       this.fetchAnnouncementsFirstPage()
     }
   },
@@ -72,6 +72,7 @@ export default {
       this.loading = false
     },
     async fetchNextAnnouncements () {
+      if (this.loading) return // prevent second loading // TODO set debounce in the screenBottom watcher
       this.loading = true
       try {
         let announcements = []

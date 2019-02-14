@@ -16,13 +16,12 @@ export default {
   data () {
     return {
       screenBottom: false,
-      lastDoc: null,
       loading: false,
       querySnapshots: null
     }
   },
   computed: {
-    ...mapGetters('announcements', ['getAnnouncements'])
+    ...mapGetters('announcements', ['getAnnouncements', 'getLastDoc'])
   },
   watch: {
     screenBottom (val) {
@@ -34,7 +33,9 @@ export default {
   mounted () {
     this.$appToolbar.setTitle('Недвижимость')
     document.addEventListener('scroll', this.isScreenBottomDisplayed)
-    this.fetchAnnouncementsFirstPage()
+    if (!this.getAnnouncements.length > 0) {
+      this.fetchAnnouncementsFirstPage()
+    }
   },
   destroyed () {
     document.removeEventListener('scroll', this.isScreenBottomDisplayed)
@@ -57,7 +58,8 @@ export default {
         } else {
           this.querySnapshots = await db.collection('announcements').limit(4).get()
         }
-        this.lastDoc = this.querySnapshots.docs[this.querySnapshots.docs.length - 1]
+        const lastDoc = this.querySnapshots.docs[this.querySnapshots.docs.length - 1]
+        this.setLastDoc(lastDoc)
         this.querySnapshots.forEach((doc) => {
           const docData = doc.data()
           docData.id = doc.id
@@ -74,7 +76,7 @@ export default {
       try {
         let announcements = []
         const db = firebase.firestore()
-        if (!this.lastDoc) {
+        if (!this.getLastDoc) {
           this.loading = false
           return
         }
@@ -84,10 +86,11 @@ export default {
           this.querySnapshots = await db.collection('announcements')
         }
         this.querySnapshots = await this.querySnapshots
-          .startAfter(this.lastDoc)
+          .startAfter(this.getLastDoc)
           .limit(10)
           .get()
-        this.lastDoc = this.querySnapshots.docs[this.querySnapshots.docs.length - 1]
+        const lastDoc = this.querySnapshots.docs[this.querySnapshots.docs.length - 1]
+        this.setLastDoc(lastDoc)
         this.querySnapshots.forEach((doc) => {
           const docData = doc.data()
           docData.id = doc.id
@@ -102,7 +105,7 @@ export default {
     onClickOpenFilterAnnouncements () {
       this.$router.push({ name: 'FilterAnnouncements' })
     },
-    ...mapActions('announcements', ['setAnnouncements', 'concatAnnouncements'])
+    ...mapActions('announcements', ['setAnnouncements', 'concatAnnouncements', 'setLastDoc'])
   }
 }
 </script>

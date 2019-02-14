@@ -1,10 +1,14 @@
 const state = {
-  announcements: []
+  announcements: [],
+  lastDoc: null
 }
 
 const getters = {
   getAnnouncements (state) {
     return state.announcements
+  },
+  getLastDoc (state) {
+    return state.lastDoc
   }
 }
 
@@ -14,6 +18,9 @@ const mutations = {
   },
   concatAnnouncements (state, announcements) {
     state.announcements = state.announcements.concat(announcements)
+  },
+  setLastDoc (state, lastDoc) {
+    state.lastDoc = lastDoc
   }
 }
 
@@ -23,6 +30,9 @@ const actions = {
   },
   concatAnnouncements ({ commit }, announcements) {
     commit('concatAnnouncements', announcements)
+  },
+  setLastDoc ({ commit }, lastDoc) {
+    commit('setLastDoc', lastDoc)
   }
 }
 

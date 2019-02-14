@@ -45,10 +45,7 @@ export default {
       })
     },
     openPhoneCallApp (phone) {
-      this.$router.replace({ query: { CALL_PHONE: phone } })
-      setTimeout(() => {
-        this.$router.replace({ query: { clear: '' } }) // FIXME fix the hack
-      }, 100)
+      window.location = `tel:${phone}`
     }
   }
 }

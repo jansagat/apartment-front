@@ -42,6 +42,9 @@ export default {
     isOfferTypeSharing () {
       return this.payload.offerTypeId === 2
     },
+    isOfferTypeSelling () {
+      return this.payload.offerTypeId === 3
+    },
     ...mapGetters('user', ['getAuthState'])
   },
   watch: {
@@ -101,7 +104,9 @@ export default {
           v-model="payload.propertyTypeId"
         ></v-select>
       </v-flex>
-      <v-flex xs6 pl-2 pr-1>
+      <v-flex
+        :class="[isOfferTypeSelling ? 'xs12 pl-2 pr-2' : 'xs6 pl-2 pr-1']"
+      >
         <v-text-field
           label="Цена"
           suffix="₸"
@@ -110,7 +115,9 @@ export default {
           v-model="payload.price"
         ></v-text-field>
       </v-flex>
-      <v-flex xs6 pl-1 pr-2>
+      <v-flex xs6 pl-1 pr-2
+        v-if="!isOfferTypeSelling"
+      >
         <v-select
           :items="RENT_TIME"
           item-text="name"
